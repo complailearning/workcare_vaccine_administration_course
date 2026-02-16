@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge;"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta http-equiv="cache-control" content="max-age=0" />
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+	<meta http-equiv="pragma" content="no-cache" />
+    <link href="./assets/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/video-js/video-js.css" rel="stylesheet">
+    <link href="./assets/custom/css/layout.css" rel="stylesheet">
+	<script src="script.js"></script>
+</head>
+<body>
+<section id="module-wrapper" >
+<!-- module-portrait-notif -->
+<div id="module-portrait-notif" >
+	<aside class="box-center">
+		<div>
+			<p>Please orientate your device horizontally</p>
+			<img src="./assets/branding/rotate.png" alt="rotate"/>
+		</div>
+	</aside>
+</div>
+<!-- navigation slide -->
+<nav>
+	<div id="module-navigation-head" class="container-fluid">
+		<div class="col-md-9 col-xs-9 text-left box-center" ><p>Course Navigation</p></div>
+		<div class="col-md-3 col-xs-3 text-right nav-ctrl" ><button type="button" class="btn btn-image" id="module-nav-close">
+				<img src="./assets/branding/nav-close.png" alt="close navigation" />
+			</button></div>
+	</div>
+	<div id="module-navigation-content">
+		<ul class="nav ">
+			<li class="nav-module-slide"></li>
+	    </ul>
+    </div>
+</nav>
+<!-- content layout -->
+<article>
+	<header class="container-fluid configBgColour configBborderColor" id="module-header">
+		<div class="pull-left text-left" >
+			<img id="logo" src="./assets/branding/logo.png"/>
+		</div>
+		<div class="pull-right text-right" >
+			<button type="button" disabled="disabled" class="btn btn-image"  id="module-header-nav" data-toggle="tooltip" data-placement="left" title="Menu">
+				<img src="./assets/branding/menu-icon.png" alt="menu-icon" />
+			</button>
+			<button type="button" class="btn btn btn-image" id="module-header-close" data-toggle="tooltip" data-placement="bottom" title="Exit">
+				<img src="./assets/branding/nav-exit.png" alt="exit-icon" />
+			</button>
+		</div>
+		<div id="assessment-title" class="text-center center-margin">
+        <h1>Activity title - subtitle</h1>
+		</div>
+	<div class="clearfix"></div>
+	</header>
+	<!-- fullbleed container -->
+	<section id="module-content" class="scroll">
+		<div id="module-content-loading" class="box-center">
+		<p>Loading Module Content… <br><img src="./assets/branding/ajax-loader.gif"/></p>
+		</div>
+
+	</section>
+	<div id="module-info-content"><div id="module-info-content-wrapper"></div></div>
+	<div id="module-footer-reveal">
+		<button type="button" class="btn btn-image btn-video-ctrl" id="video-btn-fs-close">
+			<img src="./assets/branding/fs-icon-light.png" alt="fullscreen" />
+		</button></div>
+	<footer class="container-fluid configBgColour configTborderColor" id="module-footer">
+
+	</footer>
+	<div id="module-alert">
+		<aside>
+
+		</aside>
+	</div>
+</article>
+</section>
+</body>
+
+<script id="module-video-content-template" type="text/template">
+	<div id="module-video-content">
+
+	</div>
+</script>
+
+<script id="module-alert-response-content" type="text/template">
+	<div class="popup box-center configBgColour configTborderColor configBborderColor">
+		<div>
+        <h2>{{title}}</h2>
+        <p>{{textContent}}</p>
+       	{{#responses}}
+       		<button class="btn btn-text">{{textContent}}</button>
+       	{{/responses}}
+       	</div>
+    </div>
+</script>
+
+<script id="module-start-template" type="text/template">
+		<div id="module-start" class="text-center">
+        <h2>{{title}}</h2>
+        <button style="display:none;" type="button" id="module-btn-resume" class="btn btn-text">
+             Resume<img src="./assets/branding/start-icon.png" alt="start-icon" />
+        </button>
+        <button style="display:none;" type="button" id="module-btn-resume-start" class="btn btn-text">
+             Start from Beginning<img src="./assets/branding/start-icon.png" alt="start-icon" />
+        </button>
+        <button style="display:none;" type="button" id="module-btn-start" class="btn btn-text ">
+        	Start<img src="./assets/branding/start-icon.png" alt="start-icon" />
+        </button>
+      </div>
+</script>
+
+<script id="module-video-footer-template" type="text/template">
+	<aside id="module-video-progress">
+		<div id="loaded" class="configHLColor1"></div>
+		<div id="played" class="configHLColor2"></div>
+	</aside>
+	<div class="pull-left text-left" >
+		<button type="button" class="btn btn-image btn-video-ctrl"id="video-btn-play">
+			<img src="./assets/branding/play-video.png" alt="play-video" />
+		</button>
+		<button type="button" class="btn btn-image btn-video-ctrl" id="video-btn-pause" style="display:none;">
+			<img src="./assets/branding/pause-video.png" alt="pause-video" />
+		</button>
+		<button type="button" class="btn btn-image btn-video-ctrl" id="video-btn-restart">
+			<img src="./assets/branding/refresh-video.png" alt="refresh-video" />
+		</button>
+		<button type="button" disabled="disabled" class="btn btn-image btn-video-ctrl" id="video-btn-info">
+			<img src="./assets/branding/info-icon.png" alt="captions" />
+		</button>
+		<button type="button" class="btn btn-image btn-video-ctrl" id="video-btn-backward">
+			<img src="./assets/branding/backward-slide.png" alt="backward" />
+		</button>
+		<button type="button" disabled="disabled" class="btn btn-image btn-video-ctrl" id="video-btn-forward">
+			<img src="./assets/branding/forward-slide.png" alt="forward" />
+		</button>
+	</div>
+	<div class="pull-left text-left center-margin">
+			<span id="video-timerange"><b id="video-current-time">00:00</b> / <b id="video-total-time">00:00</b></span>
+	</div>
+	<div class="pull-right text-right" >
+		<button type="button" class="btn btn-image btn-video-ctrl" id="video-btn-fs-open">
+			<img src="./assets/branding/fs-icon-dark.png" alt="fullscreen" />
+		</button>
+		<button type="button" disabled="disabled" class="btn btn-image btn-video-ctrl" id="video-btn-prev">
+			<img src="./assets/branding/prev-slide.png" alt="previous" />
+		</button>
+		<button type="button" disabled="disabled" class="btn btn-image btn-video-ctrl" id="video-btn-next">
+			<img src="./assets/branding/next-slide.png" alt="next" />
+		</button>
+	</div>
+	<div class="pull-right text-right center-margin">
+		<span id="slide-progress">{{object_str}} <b>{{object_current}}</b> of <b>{{object_total}}</b></span>
+	</div>
+	<div id="video-title" class="text-center center-margin">
+        <h2>{{title}}</h2>
+	</div>
+	<div class="clearfix"></div>
+
+</script>
+
+<script id="module-scenario-video-footer-template" type="text/template">
+	<aside id="module-video-progress">
+		<div id="loaded" class="configHLColor1"></div>
+		<div id="played" class="configHLColor2"></div>
+	</aside>
+	<div class="pull-left text-left" >
+		<button type="button" class="btn btn-image btn-video-ctrl"id="video-btn-play">
+			<img src="./assets/branding/play-video.png" alt="play-video" />
+		</button>
+		<button type="button" class="btn btn-image btn-video-ctrl" id="video-btn-pause" style="display:none;">
+			<img src="./assets/branding/pause-video.png" alt="pause-video" />
+		</button>
+		<button type="button" class="btn btn-image btn-video-ctrl" id="video-btn-restart">
+			<img src="./assets/branding/refresh-video.png" alt="refresh-video" />
+		</button>
+		<button type="button" disabled="disabled" class="btn btn-image btn-video-ctrl" id="video-btn-info">
+			<img src="./assets/branding/info-icon.png" alt="captions" />
+		</button>
+	</div>
+	<div class="pull-left text-left center-margin">
+			<span id="video-timerange"><b id="video-current-time">00:00</b> / <b id="video-total-time">00:00</b></span>
+	</div>
+	<div class="pull-right text-right" >
+		<button type="button" class="btn btn-image btn-video-ctrl" id="video-btn-fs-open">
+			<img src="./assets/branding/fs-icon-dark.png" alt="fullscreen" />
+		</button>
+		<button type="button" disabled="disabled" class="btn btn-image btn-video-ctrl" id="video-btn-prev">
+			<img src="./assets/branding/prev-slide.png" alt="previous" />
+		</button>
+		<button type="button" disabled="disabled" class="btn btn-image btn-video-ctrl" id="scenario-video-btn-next" data-goto-id="{{goto}}">
+			<img src="./assets/branding/next-slide.png" alt="next" />
+		</button>
+	</div>
+	<div class="pull-right text-right center-margin">
+		<!--<span id="slide-progress">{{object_str}} <b>{{object_current}}</b> of <b>{{object_total}}</b></span>-->
+	</div>
+	<div id="video-title" class="text-center center-margin">
+        <h2>{{title}}</h2>
+	</div>
+	<div class="clearfix"></div>
+
+</script>
+
+<script id="module-knowledge-check-template" type="text/template">
+		<div id="module-knowledge-check" class="text-center">
+        	<div data-question-id="{{current_question_id}}" id="module-knowledge-check-content" class="container-fluid">
+        		<div class="col-md-3 col-xs-2"></div>
+        		<div class="col-md-6 col-xs-8">
+        			<!--<p id= "question_number" style="font-size: 1.2em; margin-top: 1.6em; margin-bottom:.1em;">Question -  {{question_no}}</p>-->
+                	<h3>Question <span id="module-audio-content"  class=""></span>
+                    </h3>
+                	<p id="module-knowledge-check-question-title" style="font-size: 1.6em;"><b>{{title}}</b></p>
+                    <div data-toggle="buttons" id="module-knowledge-check-answers" class="container-fluid">
+                       	{{#answers}}
+                    		<label class="btn btn-answer ">
+                            	<input type="radio" name="module-knowledge-check-answer" value="{{text}}">
+                            	<div class="box-center">
+                            		<span>
+                            	{{#img}}
+                       			<img src="./assets/sections/{{section_id}}/slides/{{slide_id}}/{{.}}" class="img-answer" alt="Image prompt" /><br>
+                       			{{/img}}
+                        	   	<p>{{text}}</p>
+                        	   		</span>
+                        	   	</div>
+                        	</label>
+                       	{{/answers}}
+                    </div>
+                    <div class="alert alert-success hidden" id="knowledge-check-answer-correct"><span style="color: #00ff00;" class="glyphicon glyphicon-ok"></span>Well Done! You have selected the correct response.</div>
+					<div class="hidden" id="knowledge-check-answer-retry"><span><font size="5"><b>{{retry_text}}</b></font></b></div>
+        			<div style="margin-top:10%" class="alert alert-danger hidden" id="knowledge-check-answer-incorrect"><span style="color: #ff0000;" class="glyphicon glyphicon-remove"></span>You did not select the correct response. The correct answer was: <b>{{answer}}</b></div>
+        			<div class="alert alert-danger hidden" id="knowledge-check-incorrect-retry"><span style="color: #ff0000;" class="glyphicon glyphicon-remove"></span>Incorrect! Please retry.</div>
+       				<div>
+       					<p class="hidden" id="retry_instructions">{{{retry_instructions}}}</p>
+                    	<button type="button" disabled="disabled" class="btn btn-text" id="module-knowledge-check-submit-btn">
+                        	 Submit <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="module-knowledge-check-retry-btn">
+                        	 Retry <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="module-knowledge-check-retry-module-btn">
+                        	 Retry Module <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="module-knowledge-check-next-question-btn">
+                    	     Next <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="module-knowledge-check-finish-btn">
+                        	 Next <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+            		</div>
+            		<div class="col-md-3 col-xs-2"></div>
+       		</div>
+    </script>
+
+    <script id="module-scenario-options-template" type="text/template">
+		<div id="module-knowledge-check" class="text-center">
+        	<div data-question-id="{{current_question_id}}" id="module-knowledge-check-content" class="container-fluid">
+        		<div class="col-md-1 col-xs-1"></div>
+        		<div class="col-md-10 col-xs-10">
+                	<h3>{{title}} <span id="module-audio-content"  class=""></span></h3>
+                	<p id="module-knowledge-check-question-title">{{{prompt}}}</p>
+                    <div data-toggle="buttons" id="module-scenario-options-check-answers" class="container-fluid">
+                       	{{#answers}}
+                    		<label class="btn btn-answer row4">
+                            	<input type="radio" name="module-scenario-options-check-answer" value="{{goto}}">
+                            	<div class="box-center">
+                            		<span>
+                            	{{#img}}
+                       			<img src="./assets/sections/{{section_id}}/slides/{{slide_id}}/scenario/{{scenario_pos}}/{{.}}" class="img-answer" alt="Image prompt" /><br>
+                       			{{/img}}
+                        	   	<p>{{text}}</p>
+                        	   		</span>
+                        	   	</div>
+                        	</label>
+                       	{{/answers}}
+                    </div>
+       				<div>
+                    	<button type="button"  disabled="disabled" class="btn btn-text" id="module-scenario-option-continue-btn">
+                        	 Continue
+                    	</button>
+            		</div>
+            		<div class="col-md-1 col-xs-1"></div>
+       		</div>
+    </script>
+
+     <script id="module-checkboxes-template" type="text/template">
+    
+		<div id="module-knowledge-check" class="text-center">
+
+
+        	<div id="module-checkboxes-content" class="container-fluid">
+        		<div class="col-md-1 col-xs-"></div>
+        		<div class="col-md-10 col-xs-10">
+        			<!-- <p style="font-size: 1.2em; margin-top: 1.6em; margin-bottom:.1em;">Question -  {{question_no}}</p> -->
+        			<h3>{{question_text}} <span id="module-audio-content" class=""></span></h3>
+                	<p id="module-knowledge-check-question-title">{{instruction_text}}</p>               	
+					<img src="assets/imgs/image5.jpg" style="width:35em;"/>
+					<div id="module-checkboxes-answers" class="container-fluid">
+                		<form>
+                    	<fieldset  id="checkboxes-answers">
+                    		{{#answers}}
+                           	<div class="input_line" style="width:{{width_container}}; margin:{{margin_layout}}; height:{{height_layout}}; float:left; "> 
+                       			<div style="height:2vw">
+                       				<input type="checkbox" name="check_answers" value="{{id}}" data-id="{{id}}" class="input_chk_size" style="width:{{width_layout}};" />
+                       			<div class="indicator input_size" style="width:{{width_layout}};"></div>
+                       			<span class="checkbox_list" style="text-align:left; padding-left:10%; display: flex; margin-top:-1.2em; margin-left:1em;">{{text}}</span>
+                       		</div>
+                       		</div>
+                       	{{/answers}}
+                    	</fieldset>
+                    	</form>
+                	</div>
+					<div class="alert alert-success hidden" id="checkbox-review-answer-correct" style="margin-top: 5px; font-size: 140%"><span style="color: #00ff00;" class="glyphicon glyphicon-ok"></span>{{{correct_answer}}}</div>
+        				<div class="alert alert-danger hidden" id="checkbox-review-answer-incorrect" style="margin-top:5px; font-size: 140%"><span style="color: #ff0000;" class="glyphicon glyphicon-remove"></span>{{{incorrect_answer}}}</div>
+                	<div class="col-md-12 col-xs-12">
+        				<button type="button" class="btn btn-text disabled" id="module-checkboxes-submit-btn">
+                        	 Submit <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+						<button type="button" class="btn btn-text hidden" id="module-checkboxes-review-submit-assessment-btn">
+                        	 Submit <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="module-checkboxes-submit-assessment-btn">
+                        	 Submit <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    </div>
+        		</div>
+        		<div class="col-md-1 col-xs-1"></div>
+       		</div>
+       		<div data-question-id="{{current_question_id}}" id="module-checkboxes-results" class="container-fluid hidden">
+        		<div class="col-md-2 col-xs-2"></div>
+        		<div class="col-md-8 col-xs-8">
+        			<div class="alert alert-success hidden" id="checkboxes-correct" style="font-size: 140%"><span style="color: color: #00ff00;"  class="glyphicon glyphicon-ok"></span> {{{correct}}}</div>
+        			<div style="margin-top:10%;" class="alert alert-danger hidden" id="checkboxes-incorrect" style=" font-size: 140%"><span style="color: color: #00ff00;" class="glyphicon glyphicon-remove"></span> {{{incorrect}}}</div>
+        			<div class="alert alert-danger hidden" id="checkboxes-incorrect-retry" style=" font-size: 140%"><span style="color: color: #00ff00;" class="glyphicon glyphicon-remove"></span>Incorrect! Please retry</div>
+        			<div>
+        				<button type="button" class="btn btn-text hidden" id="module-checkboxes-retry-btn">
+                        	 Retry <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>	
+        				<button type="button" class="btn btn-text hidden" id="module-checkboxes-question-btn">
+                    	     Next Question <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="module-checkboxes-finish-btn">
+                        	 Next <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    </div>
+        		</div>
+        		<div class="col-md-2 col-xs-2"></div>
+       		</div>
+       	</div>
+    </script>
+
+	<script id="module-image-highlights-template" type="text/template">
+
+		<div id="module-image-highlights" class="text-center" >
+			<div id="highlight_background" class="">
+				{{#highlights}}
+					<div data-id="{{id}}" class="highlight" style="left:{{left}}; top:{{top}}; width:{{width}}; height:{{height}}" data-placement="{{dir}}"></div>
+				{{/highlights}}
+			</div>
+        </div>
+        <span id="module-audio-content"  class=""></span>
+    </script>
+
+    <script id="module-image-highlights-footer-template" type="text/template">
+	<div class="pull-left text-left center-margin" >
+		<h2>{{title}}</h2>
+	</div>
+	<div class="pull-right text-right" >
+		<button type="button" class="btn btn-image btn-video-ctrl" id="image-highlight-btn-prev">
+			<img src="./assets/branding/prev-slide.png" alt="previous" />
+		</button>
+		<button type="button" class="btn btn-image btn-video-ctrl" id="image-highlight-btn-next">
+			<img src="./assets/branding/next-slide.png" alt="next" />
+		</button>
+	</div>
+	<div class="pull-right text-right center-margin">
+		<!--<span id="slide-progress">{{object_str}} <b>{{object_current}}</b> of <b>{{object_total}}</b></span>-->
+	</div>
+	<div id="video-title" class="text-center center-margin">
+        <h2>{{instruction_text}}</h2>
+	</div>
+	<div class="clearfix"></div>
+
+</script>
+
+
+
+    <script id="module-drag-drop-targets-template" type="text/template">
+		<div id="module-drag-drop-targets" class="text-center">
+
+        	<div data-question-id="{{current_question_id}}" id="module-drag-drop-targets-content" class="container-fluid">
+        		<div class="col-md-1 col-xs-1"></div>
+        		<div class="col-md-10 col-xs-10" id="module-drag-drop-targets-selection" >
+        		<h4><b>{{question_text}}<span id="module-audio-content" class=""></span></b></h4>
+                	<p id="module-knowledge-check-question-title">{{{instruction_text}}}</p>
+        			{{#groups}}
+        				<div id="{{id}}" class="col-md-{{col_w}} col-xs-{{col_w}} drag_drop_group" style="z-index:{{zindex_layout}};">
+        					<div style="padding:{{padding_layout}}">
+        					{{#title}}
+	        					<h4 class="drag_drop_group_header box-center" style="margin:0px; height:{{height_layout}}; margin-left: -20px;">{{title}}</h4>
+        					{{/title}}
+        					{{#drags}}
+        						<div class="dragable box-center" data-id="{{drag_id}}" style="margin:{{margin_layout}}; height:{{height_layout}}">
+        							{{text}}
+        						</div>
+        					{{/drags}}
+        					{{#targets}}
+        						<div class="dropable" data-id="{{drop_id}}" data-draggable="" style="margin:{{margin_layout}}; height:{{height_layout}}">
+
+        						</div>
+        						{{#text}}
+        						<div class="drop_label" style="margin:{{label_margin_layout}}; height:auto;">{{text}}</div>
+								{{/text}}
+        					{{/targets}}
+        					</div>
+						</div>
+        			{{/groups}}
+        			<div class="col-md-12 col-xs-12">
+        				<button type="button" class="btn btn-text" id="module-drag-drop-targets-submit-btn">
+                        	 Submit <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="module-drag-drop-targets-submit-assessment-btn">
+                        	 Submit <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    </div>
+                </div>
+        		<div class="col-md-1 col-xs-1"></div>
+       		</div>
+       		<div data-question-id="{{current_question_id}}" id="module-drag-drop-targets-results" class="container-fluid hidden">
+        		<div class="col-md-2 col-xs-2"></div>
+        		<div class="col-md-8 col-xs-8">
+        			<div class=" hidden" id="drag-drop-targets-correct">{{{correct}}}</div>
+        			<div class=" hidden" id="drag-drop-targets-incorrect">{{{incorrect}}}</div>
+        			<div>
+        				<button type="button" class="btn btn-text hidden" id="module-drag-drop-targets-retry-btn">
+                        	 Retry <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+        				<button type="button" class="btn btn-text hidden" id="module-drag-drop-targets-next-question-btn">
+                    	     Next Question <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="module-drag-drop-targets-finish-btn">
+                        	 Finish
+                    	</button>
+                    </div>
+        		</div>
+        		<div class="col-md-2 col-xs-2"></div>
+       		</div>
+       	</div>
+    </script>
+
+     <script id="module-drag-drop-lists-template" type="text/template">
+		<div id="module-drag-drop-lists" class="text-center">
+        	<div data-question-id="{{current_question_id}}" id="module-drag-drop-lists-content" class="container-fluid">
+        		<div class="col-md-1 col-xs-1"></div>
+        		<div class="col-md-10 col-xs-10" id="module-drag-drop-lists-selection" class="container-fluid" >
+        		<h3>{{question_text}} <span id="module-audio-content" class=""></span></h3>
+                	<p id="module-knowledge-check-question-title">{{{instruction_text}}}</p>
+       				{{#start}}
+        				<ul id="drag-start" class="drag-list connected_drag col-md-6 col-xs-6" style="z-index:{{zindex_layout}}; padding:{{padding_layout}};">
+        					{{#drags}}<li class="dragable drop_list_item box-center snap" data-id="{{drag_id}}" style="width:{{width_layout}}; margin:{{margin_layout}}; height:{{height_layout}}; float:left;">{{{text}}}</li>{{/drags}}
+        					</ul>
+        			{{/start}}
+        			{{#target}}
+        				<div class="dropable-list col-md-6 col-xs-6 " style="padding:{{padding_layout}};" >
+        					<ul class="dropable connected_drag" id="drag-target" style="padding:0px">
+        					</ul>
+        				 </div>
+        			{{/target}}
+        			<div class="col-md-12 col-xs-12">
+        				<button type="button" class="btn btn-text" id="module-drag-drop-lists-submit-btn">
+                        	 Submit <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="module-drag-drop-lists-submit-assessment-btn">
+                        	 Submit <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    </div>
+        		</div>
+        		<div class="col-md-1 col-xs-1"></div>
+
+
+       		</div>
+       		<div data-question-id="{{current_question_id}}" id="module-drag-drop-lists-results" class="container-fluid hidden">
+        		<div class="col-md-2 col-xs-2"></div>
+        		<div class="col-md-8 col-xs-8">
+					<div class="hidden" id="drag-drop-lists-correct">{{correct}}</div>
+					<div class="hidden" id="drag-drop-lists-incorrect">{{{incorrect}}}</div>
+					<div class="hidden" id="drag-drop-lists-incorrect-desc">{{{incorrect_desc}}}</div>
+        			<div>
+        				<button type="button" class="btn btn-text hidden" id="module-drag-drop-lists-retry-btn">
+                        	 Retry <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+        				<button type="button" class="btn btn-text hidden" id="module-drag-drop-lists-next-question-btn">
+                    	     Next Question <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="module-drag-drop-lists-finish-btn">
+                        	 Next
+                    	</button>
+                    </div>
+        		</div>
+        		<div class="col-md-2 col-xs-2"></div>
+       		</div>
+       	</div>
+    </script>
+
+    <script id="module-drag-drop-puzzle-template" type="text/template">
+		<div id="module-drag-drop-puzzle" class="text-center">
+        	<div data-question-id="{{current_question_id}}" id="module-drag-drop-puzzle-content" class="container-fluid">
+        		<div class="col-md-1 col-xs-1"></div>
+        		<div class="col-md-10 col-xs-10" id="module-drag-drop-puzzle-selection" class="container-fluid" >
+        		<h3>{{question_text}} <span id="module-audio-content" class=""></span></h3>
+                	<p id="module-knowledge-check-question-title">{{{instruction_text}}}</p>
+                	<div id="drag_puzzle_holder" >
+                		<div id="drag_puzzle_left">
+                			{{#left}}
+                				<div class="puzzle_left  puzzle_m_height box-center" style=" margin:{{margin_layout}};">
+                					{{{text}}}<div class="puzzle_left_bg_color"></div>
+                				</div>
+                			{{/left}}
+                		</div>
+                		<ul id="drag_puzzle" >
+        					{{#drags}}<li class="drag_puzzle_item puzzle_m_height box-center snap" data-id="{{drag_id}}" data-locked="0" style="margin:{{margin_layout}};">{{{text}}}<div class="drag_puzzle_item_bg_color"></div></li>{{/drags}}
+        				</ul>
+                   	</div>
+					<div class="alert alert-success hidden" id="drag-review-answer-correct" style="margin-top: 5px; font-size: 140%"><span style="color: #00ff00;" class="glyphicon glyphicon-ok"></span>{{{correct_text}}}</div>
+        				<div class="alert alert-danger hidden" id="drag-review-answer-incorrect" style="margin-top:5px; font-size: 140%"><span style="color: #ff0000;" class="glyphicon glyphicon-remove"></span>{{{incorrect_text}}}</div>
+        			<div class="col-md-12 col-xs-12">
+        				<button type="button" class="btn btn-text" id="module-drag-drop-puzzle-submit-btn" style="margin-bottom:65px;">
+                        	 Submit <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="module-drag-drop-puzzle-submit-assessment-btn">
+                        	 Submit <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+						<button type="button" class="btn btn-text hidden" id="module-drag-drop-puzzle-review-submit-assessment-btn">
+                        	 Next <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    </div>
+        		</div>
+        		<div class="col-md-1 col-xs-1"></div>
+       		</div>
+       		<div data-question-id="{{current_question_id}}" id="module-drag-drop-puzzle-results" class="container-fluid hidden">
+        		<div class="col-md-2 col-xs-2"></div>
+        		<div class="col-md-8 col-xs-8">
+        			<div class="alert alert-success hidden" id="drag-drop-puzzle-correct" style="font-size: 140%"><span style="color: #00ff00;" class="glyphicon glyphicon-ok"></span> {{{correct}}}</div>
+        			<div class="alert alert-danger hidden" id="drag-drop-puzzle-incorrect" style="font-size: 140%"><span style="color: #ff0000;" class="glyphicon glyphicon-remove"></span> {{{incorrect}}}</div>
+        			<div>
+        				<button type="button" class="btn btn-text hidden" id="module-drag-drop-puzzle-retry-btn">
+                        	 Retry <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+        				<button type="button" class="btn btn-text hidden" id="module-drag-drop-puzzle-next-question-btn">
+                    	     Next Question <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="module-drag-drop-puzzle-finish-btn">
+                        	 Finish
+                    	</button>
+                    </div>
+        		</div>
+        		<div class="col-md-2 col-xs-2"></div>
+       		</div>
+       	</div>
+    </script>
+
+    <script id="module-assessment-template" type="text/template">
+		<div id="module-assessment" class="text-center">
+        	<div data-question-id="{{current_question_id}}" id="module-assessment-content" class="container-fluid">
+        		<div class="col-md-3 col-xs-2"></div>
+        		<div class="col-md-6 col-xs-8">
+                	<h3><span id="module-audio-content" class=""></span></h3>
+                	<p id="module-assessment-question-title"><b>{{{title}}}</b></p>
+                    <div data-toggle="buttons" id="module-assessment-answers" class="container-fluid">
+                       	{{#answers}}
+                    		<label class="btn btn-answer ">
+                            	<input type="radio" name="module-assessment-answer" value="{{oid}}">
+                            	<div class="box-center">
+                            		<span>
+                            	{{#img}}
+                       			<img src="./assets/sections/{{section_id}}/slides/{{slide_id}}/{{.}}" class="img-answer" alt="Image prompt" /><br>
+                       			{{/img}}
+                        	   	<p>{{text}}</p>
+                        	   		</span>
+                        	   	</div>
+                        	</label>
+                       	{{/answers}}
+                    </div>
+					<div class="alert alert-success hidden" id="review-answer-correct" style="margin-top: 5px; font-size: 140%"><span style="color: #00ff00;" class="glyphicon glyphicon-ok"></span> {{{correct_answer}}}</div>
+        	<div class="alert alert-danger hidden" id="review-answer-incorrect" style="margin-top:5px; font-size: 140%"><span style="color: #ff0000;" class="glyphicon glyphicon-remove"></span> {{{incorrect_answer}}}</div>
+       				<div>
+                    	<button type="button" disabled="disabled" class="btn btn-text" id="module-assessment-submit-btn">
+                        	 Submit <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+						<!-- <button type="button" class="btn btn-text" id="module-assessment-review-submit-btn">
+                        	 Next <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button> -->
+            		</div>
+            		<div class="col-md-3 col-xs-2"></div>
+       		</div>
+    </script>
+    
+    <script id="module-assessment-results-template" type="text/template">
+		<div id="module-assessment-results" class="text-center">
+        	<div data-question-id="{{current_question_id}}" class="container-fluid" id="module-assessment-content">
+            	<div class="col-md-3 col-xs-2"></div>
+        		<div class="col-md-6 col-xs-8">
+                	<h3>Assessment Results</h3>
+                	<br/>
+
+                	<p>Your Score: <b>{{score}}%</b></p>
+               		<p>Passing Score: <b>{{passing_score}}%</b></p>
+                	<hr/>
+                	{{#fail}}
+                	<p id="module-assessment-fail">
+                    	<span style="color: #ff0000;" class="glyphicon glyphicon-remove"></span> You did not pass.
+               		</p>
+               		{{/fail}}
+               		{{#pass}}
+                	<p id="module-assessment-pass">
+                    	<span style="color: #00ff00;" class="glyphicon glyphicon-ok"></span> You passed!
+                	</p>
+                	{{/pass}}
+                	<br/>
+                	<p id="module-assessment-retake">
+                    	It is only necessary to retake the assessment if your score is below the passing score.
+                	</p>
+                	<hr/>
+                	{{#incorrect}}
+                	<h3>{{{incorrect_title}}}</h3>
+                	<p class="module-assessment-subtext">{{{incorrect_text}}}</p>
+                	<p>
+                	{{{incorrect}}}
+                	</p>
+                	{{/incorrect}}
+                	<div>
+               	 		<div>
+                    	<button type="button" disabled="disabled" class="btn btn-text btn-med" id="module-assessment-submit-btn">
+                         	Submit
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="module-assessment-retry-btn">
+                        	Retry Quiz
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="module-assessment-retry-course-btn">
+                        	Retry Course
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="module-assessment-finish-btn">
+                        	 Finish
+                    	</button>
+                		</div>
+            	</div>
+       	</div>
+    </script>
+
+    <script id="module-progress-footer-template" type="text/template">
+	<div class="col-md-6 col-xs-6 text-left center-margin" >
+		<h2>{{title}}</h2>
+	</div>
+	<div class="col-md-6 col-xs-6 text-right center-margin">
+		<span id="slide-progress">{{object_str}} <b>{{object_current}}</b> of <b>{{object_total}}</b>
+	</div>
+</script>
+
+<script id="module-scenario-options-footer-template" type="text/template">
+	<div class="col-md-6 col-xs-6 text-left center-margin" >
+		<h2>{{title}}</h2>
+	</div>
+	<div class="col-md-6 col-xs-6 text-right center-margin">
+		<!--<span id="slide-progress">{{object_str}} <b>{{object_current}}</b> of <b>{{object_total}}</b>-->
+	</div>
+</script>
+
+<script id="module-outcome-template" type="text/template">
+		<div id="module-outcome" class="text-center">
+        	<div data-outward-url="{{outward_url}}" id="module-outcome-content" class="container-fluid">
+        		<div class="col-md-3 col-xs-2"></div>
+        		<div class="col-md-6 col-xs-8">
+                	<h3>{{title}} <span id="module-audio-content" class=""></span></h3>
+                	<p id="module-assessment-question-title">{{{text}}}</p>
+       				<div>
+                    	<button type="button" class="btn btn-text" id="module-outcome-submit-btn">
+                        	 {{button_text}} <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+            		</div>
+            		<div class="col-md-3 col-xs-2"></div>
+       		</div>
+	</script>
+	<script id="click-target-template" type="text/template">
+		<div id="module-outcome" class="text-center" >
+        	<div data-outward-url="{{outward_url}}" id="module-outcome-content" class="container-fluid">
+        		<div class="col-md-1 col-xs-2"></div>
+        		<div class="col-md-10 col-xs-8">
+					<br/>
+                	<!-- <h3>{{title}} <span id="module-audio-content" class=""></span></h3> -->
+                	
+					<h4><b style='font-size: 1.2em;'>{{text}} <span id="module-audio-content" class=""></span></b></h4>
+					<p id="module-assessment-question-title"></p>
+					
+					    <!-- <div style="cursor: url(unnamed.png), auto">
+							<img src="assets/imgs/{{img}}" style="width: 25em;"/>
+						</div> -->
+						<div style="cursor: url(unnamed.png), auto">
+							<img src="assets/imgs/{{img}}" id="click-img" usemap="#image-map" onClick="incorrectClickTarget()">
+							<map name="image-map">
+								<area onClick="correctClickTarget()" coords="143,128,54" shape="circle">
+							</map>
+						</div>
+						  
+						<br/>
+						<div class="alert alert-success hidden" id="click-target-correct-message">
+						  <strong style="font-size: 1.5em;">Congratulations! You have identified the correct muscle location.</strong>
+						</div>
+						<div class="alert alert-danger hidden" id="click-target-incorrect-message">
+							<strong style="font-size: 1.5em;">You have chosen the wrong muscle.</strong>
+						  </div>
+						<div class="alert alert-danger hidden" id="click-target-incorrect-message-desc">
+						  <strong style="font-size: 1.5em;">You have chosen the wrong muscle. The correct answer is the deltoid muscle , a rounded and triangular muscle located on the uppermost part of the arm.</strong>
+						</div>
+					<div>
+                    	<button type="button" class="btn btn-text hidden" id="click-target-check-answer">
+                        	SUBMIT <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+            		</div>
+       				<div>
+						<button type="button" class="btn btn-text hidden" id="module-assessment-retry-btn">
+                        	Retry <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="click-target-submit-btn">
+                        	 {{button_text}} <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+            		</div>
+            		<div class="col-md-3 col-xs-2"></div>
+       		</div>
+			<script>clickTarget();</script>
+
+</script>
+	<script id="fill-in-the-blanks-template" type="text/template">
+		<div id="module-outcome" class="text-center" >
+        	<div data-outward-url="{{outward_url}}" id="module-outcome-content" class="container-fluid">
+        		<div class="col-md-1 col-xs-2"></div>
+        		<div class="col-md-10 col-xs-8">
+					<br/>
+                	<!-- <h3>{{title}} <span id="module-audio-content" class=""></span></h3> -->
+                	
+					<h4><b style='font-size: 1.2em;'>{{text}} <span id="module-audio-content" class=""></span></b></h4>
+					<p id="module-assessment-question-title"></p>
+
+						<div style="background-image: url(assets/imgs/image4-empty.png); background-repeat: no-repeat; background-position: center; background-image: url(assets/imgs/image4-empty.png); height: 378px; width: 280px; display: inline-block;">
+							<!-- <img src="assets/imgs/image4-empty.png"/> -->
+							<span style="" id="droppable1" class="droppable"></span>
+
+							<div id="draggable1" class="draggable" style="left:140px;top:67px;width:140px"><img src="assets/imgs/b5.png"/></div>
+							<div id="draggable2" class="draggable" style="left:2px;top:254px;width:140px"><img src="assets/imgs/b9.png"/></div>
+							<div id="draggable3" class="draggable" style="left:96px;top:175px;width:70px"><img src="assets/imgs/b2.png"/></div>
+							<div id="draggable4" class="draggable" style="left:104px;top:177px;width:70px"><img src="assets/imgs/b2r.png"/></div>
+							<!-- <div id="draggable5" class="draggable" style="left:14px;top:-174px;width:70px"><img src="assets/imgs/b2.png"/></div> -->
+						</div>
+					
+					    <div class="draggable-items">
+							<!-- <div id="draggable1" class="draggable" style="left:230px;top:-240px;width:140px"><img src="assets/imgs/b5.png"/></div> -->
+							<!-- <div id="draggable2" class="draggable">operator</div>
+							<div id="draggable3" class="draggable">customer</div>
+							<div id="draggable4" class="draggable">judge</div>
+							<div id="draggable5" class="draggable">impression</div> -->
+						</div>
+
+						<div class="row" style="clear: both;">
+							<div style="width:90%">
+							
+							</div> 
+
+						  </div>
+						  
+						<br/>
+						<div class="alert alert-success hidden" id="fill-in-the-blanks-correct-message">
+						  <strong style="font-size: 1.5em;">Congratulations - you have placed the trays correctly! The vaccines will now receive
+							adequate ventilation and space for optimal storage.</strong>
+						</div>
+						<div class="alert alert-danger hidden" id="fill-in-the-blanks-incorrect-message-desc">
+							<strong style="font-size: 1.5em;">Incorrect! You should have placed the trays in the middle rack of the refrigerator.</strong>
+						</div>
+						<div class="alert alert-danger hidden" id="fill-in-the-blanks-incorrect-message">
+						  <strong style="font-size: 1.5em;">Incorrect!</strong>
+						</div>
+					<div>
+                    	<button type="button" class="btn btn-text" id="fill-in-the-blanks-check-answer">
+                        	SUBMIT <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+            		</div>
+       				<div>
+						<button type="button" class="btn btn-text hidden" id="module-assessment-retry-btn">
+                        	Retry <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+                    	<button type="button" class="btn btn-text hidden" id="fill-in-the-blanks-submit-btn">
+                        	 {{button_text}} <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+            		</div>
+            		<div class="col-md-3 col-xs-2"></div>
+       		</div>
+			<script>fillInTheBlanks();</script>
+
+</script>
+    <script id="module-scenario-outcome-template" type="text/template">
+		<div id="module-outcome" class="text-center">
+        	<div data-outward-url="{{outward_url}}" id="module-outcome-content" class="container-fluid">
+        		<div class="col-md-3 col-xs-2"></div>
+        		<div class="col-md-6 col-xs-8">
+                	<h3>{{title}} <span id="module-audio-content" class=""></span></h3>
+                	<p id="module-assessment-question-title">{{{text}}}</p>
+       				<div>
+                    	<!-- <button type="button" class="btn btn-text hidden" id="module-scenario-outcome-back-btn" data-goto-id="{{goback}}">
+                        	 GO BACK <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button> -->
+                    	<button type="button" class="btn btn-text" id="module-scenario-outcome-submit-btn" data-goto-id="{{goto}}">
+                        	 {{button_text}} <img src="./assets/branding/start-icon.png" alt="start-icon" />
+                    	</button>
+            		</div>
+            		<div class="col-md-3 col-xs-2"></div>
+       		</div>
+    </script>
+
+    <script id="module-outcome-footer-template" type="text/template">
+	<div class="col-md-6 col-xs-6 text-left center-margin" >
+		<h2>{{title}}</h2>
+	</div>
+	<div class="col-md-6 col-xs-6 text-right center-margin">
+	</div>
+</script>
+
+
+	<script src="./assets/config.js"></script>
+    <script src="./assets/jquery/1.11.0/jquery-1.11.0.min.js"></script>
+    <script src="./assets/jquery/jquery_ui/jquery-ui.min.js"></script>
+    <script src="./assets/jquery/jquery.ui.touch-punch.js"></script>
+    <script src="./assets/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="./assets/scobot/js/scorm.bot.pack.js"></script>
+    <script src="./assets/video-js/video.js"></script>
+    <script src="./assets/custom/js/video.js?"></script>
+	<script src="./assets/custom/js/layout_displays.js?"></script>
+
+    <script type="text/javascript">
+
+      	if (!window.console) window.console = {};
+		if (!window.console.log) window.console.log = function () { };
+
+   	 	videojs.options.flash.swf = "./assets/video-js/video-js.swf";
+
+   	 	//console.log(navigator.userAgent);
+   	 	//console.log("v19");
+
+    	var scorm = new SCOBotBase({
+            debug: false,                  // true or false
+            time_type: "GMT",              // UTC, GMT or ""
+            exit_type: 'suspend',           // suspend, finish
+            success_status: 'unknown',      // passed, failed, unknown
+            completion_status: 'unknown' // completed, incomplete, not attempted, unknown
+        });
+
+       /* var scorm = new SCOBot({
+            interaction_mode: 'state',  // state or journaled
+            completion_threshold: '1'      // uses cmi.progress_measure to equate cmi.completion_status
+        });*/
+
+
+        scorm.initialize();
+
+
+       	if(navigator.userAgent.indexOf("Trident/5")>-1){
+       		var params = {};
+			params.bgcolor = "#333333";
+            _V_.options.techOrder = ["flash"];
+            _V_.options.flash.swf = "./assets/video-js/video-js.swf";
+            _V_.options.flash.params = params;
+        }
+
+        if(navigator.userAgent.indexOf("Trident/6")>-1){
+       		var params = {};
+			params.bgcolor = "#333333";
+            _V_.options.techOrder = ["flash"];
+            _V_.options.flash.swf = "./assets/video-js/video-js.swf";
+            _V_.options.flash.params = params;
+        }
+
+        if(navigator.userAgent.indexOf("Firefox")!=-1){
+       		var params = {};
+			params.bgcolor = "#333333";
+            _V_.options.techOrder = ["flash"];
+            _V_.options.flash.swf = "./assets/video-js/video-js.swf";
+            _V_.options.flash.params = params;
+        }
+
+</script>
+
+    <script src="./assets/mustache/mustache.js"></script>
+    <script src="./assets/custom/js/control.js"></script>
+
+
+
+</html>
